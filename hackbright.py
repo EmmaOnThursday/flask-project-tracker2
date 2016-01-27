@@ -99,6 +99,16 @@ def get_grades_by_github(github):
             github, row[1], row[0])
     return rows
 
+# def get_projects_and_grades_by_github(github):
+#     """Get tuples for all projects and grades for a student by their github"""
+
+#     QUERY = """
+#         SELECT project_title, grade
+#         FROM Grades
+#         WHERE student_github = :github
+#         """
+#     return rows
+
 def get_grades_by_title(title):
     """Get a list of all student grades for a project by its title"""
 

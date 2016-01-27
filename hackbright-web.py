@@ -19,14 +19,19 @@ def get_student():
 
     github = request.args.get('github', 'jhacks')
     first, last, github = hackbright.get_student_by_github(github)
+
+    # call function to return project title and grade in tuples
+    title_grade_list = hackbright.get_grades_by_github(github)
+
     html = render_template("student_info.html",
                             first=first,
                             last=last,
-                            github=github)
+                            github=github, 
+                            title_grade_list=title_grade_list)
     return html
 
 
-@app.route("/add-student", methods=['POST'])
+@app.route("/add-student")
 def add_new_student_form():
     """Show form for adding a new student. """
 
@@ -34,7 +39,7 @@ def add_new_student_form():
 
 
 
-@app.route("/new-student")
+@app.route("/new-student", methods=['POST'])
 def display_new_student():
     """After student is added, display student info."""
 
@@ -43,7 +48,8 @@ def display_new_student():
     last = request.form.get('last_name', 'Hacks')
     github = request.form.get('github', 'jhacks')
 
-    first, last, github = hackbright.get_student_by_github(first_name, last_name, github)
+    print first, last, github
+    hackbright.make_new_student(first, last, github)
 
     return render_template("new_student.html",                             
                             first=first,
